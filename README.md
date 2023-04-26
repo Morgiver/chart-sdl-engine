@@ -3,7 +3,7 @@
 This package will provide an API to render trading charts and give some graphics tools to do technical analysis using the SDL2 (Simple DirectMedia Layer).
 It will provide access to tools created to collect data for training artificial intelligence as well.
 
-## Actual State : Iteration 0 (see [historic for past iterations](https://github.com/Morgiver/trading-chart-sdl/blob/main/iterations.md))
+## Actual State : Iteration 0 [IN DEV] (see [historic for past iterations](https://github.com/Morgiver/trading-chart-sdl/blob/main/iterations.md))
 
 #### Objectives for this iterations :
 1. Be capable to show different zones on the screen : Graphics zone, scale x and y zones.

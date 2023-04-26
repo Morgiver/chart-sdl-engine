@@ -75,7 +75,7 @@ class SDLChart:
             pointer (int | NoneType): Pointer of an eventual existing window where we want
                            to integrate our Window
         """
-        return SDL_CreateWindowFrom(win_pointer)
+        return SDL_CreateWindowFrom(pointer)
 
     def create_window(self) -> SDL_Window:
         """
