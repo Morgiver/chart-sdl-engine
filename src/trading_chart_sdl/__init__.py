@@ -7,7 +7,7 @@ from src.trading_chart_sdl.Manager import EntityManager
 from src.trading_chart_sdl.Components import *
 from src.trading_chart_sdl.Systems import *
 
-class SDLChart:
+class SDLEngine:
     def __init__(self, w: int = 500, h: int = 500) -> None:
         """
         Initialization

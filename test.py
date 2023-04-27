@@ -3,7 +3,7 @@ import time
 from src.trading_chart_sdl import *
 
 if __name__ == "__main__":
-    c = SDLChart()
+    c = SDLEngine()
 
     c.add_system(MouseSystem)
     c.add_system(EventSystem)
