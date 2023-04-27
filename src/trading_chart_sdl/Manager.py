@@ -10,6 +10,7 @@ class EntityManager:
     def __init__(self):
         self.entities = {}
         self.components = {}
+        self.specials = {}
 
     def create_entity(self) -> uuid.UUID:
         """
@@ -21,6 +22,17 @@ class EntityManager:
         e_id = uuid.uuid4()
         self.entities[e_id] = set()
         return e_id
+
+    def register_special(self, e_id: uuid.UUID, name: str) -> None:
+        if name not in self.specials:
+            self.specials[name] = e_id
+
+    def has_special(self, name: str) -> bool:
+        return name in self.specials
+
+    def get_special(self, name: str):
+        if name in self.specials:
+            return self.specials[name]
 
     def add_component(self, e_id: uuid.UUID, component_type: str, component: Component) -> None:
         """
@@ -36,6 +48,14 @@ class EntityManager:
 
         self.components[component_type][e_id] = component
         self.entities[e_id].add(component_type)
+
+    def remove_component(self, e_id: uuid.UUID, component_type):
+        if component_type not in self.components:
+            self.components[component_type] = {}
+            return
+
+        del self.components[component_type][e_id]
+        del self.entities[e_id][component_type]
 
     def get_component(self, e_id: uuid.UUID, component_type: str) -> Component:
         """

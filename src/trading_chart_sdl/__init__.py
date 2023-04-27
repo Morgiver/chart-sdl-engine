@@ -25,6 +25,9 @@ class SDLChart:
         self.em       = EntityManager()
         self.systems  = []
 
+    def register_special(self, e_id: uuid.UUID, name: str) -> None:
+        self.em.register_special(e_id, name)
+
     def add_system(self, system: System):
         """ Adding a System to the SDLChart"""
         if system not in self.systems:
@@ -114,6 +117,18 @@ class SDLChart:
             if self.events.type == SDL_QUIT:
                 self.destroy()
                 return False
+
+            if self.events.type == SDL_MOUSEMOTION:
+                MouseSystem.on_motion(self.em, self.events.motion)
+
+            if self.events.type == SDL_MOUSEBUTTONDOWN:
+                MouseSystem.on_button_down(self.em, self.events.button)
+
+            if self.events.type == SDL_MOUSEBUTTONUP:
+                MouseSystem.on_button_up(self.em, self.events.button)
+
+            if self.events.type == SDL_MOUSEWHEEL:
+                MouseSystem.on_wheel(self.em)
 
         return True
 

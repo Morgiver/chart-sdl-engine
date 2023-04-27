@@ -6,7 +6,9 @@ from src.trading_chart_sdl.Components import *
 
 class System:
     """ Defining the System Type """
-    pass
+    @staticmethod
+    def update(em: EntityManager, renderer: render.SDL_Renderer, e_id: uuid.UUID) -> None:
+        pass
 
 class RenderSystem(System):
     """
@@ -56,15 +58,12 @@ class RenderSystem(System):
             renderer (SDL_Renderer): The rendering surface
             e_id             (UUID): The unique id of entity
         """
-        vector_component = em.get_component(e_id, "vector")
-        color_component = em.get_component(e_id, "color")
+        a = em.get_component(e_id, "point_a")
+        b = em.get_component(e_id, "point_b")
+        c = em.get_component(e_id, "color")
 
-        if not vector_component or not color_component or len(vector_component.coordinates) != 2:
+        if not a or not b or not c:
             return
-
-        a = PositionComponent(*vector_component.coordinates[0])
-        b = PositionComponent(*vector_component.coordinates[1])
-        c = color_component
 
         SDL_SetRenderDrawColor(renderer, c.r, c.g, c.b, c.a)
         SDL_RenderDrawLine(renderer, a.x, a.y, b.x, b.y)
@@ -82,20 +81,100 @@ class RenderSystem(System):
         size_component = em.get_component(e_id, "size")
         color_component = em.get_component(e_id, "color")
         position_component = em.get_component(e_id, "position")
+        fillrect_component = em.get_component(e_id, "fillrect")
 
         if not size_component or not color_component or not position_component:
             return
 
-        SDL_SetRenderDrawColor(renderer,
-            color_component.r,
-            color_component.g,
-            color_component.b,
-            color_component.a
-        )
-
-        SDL_RenderDrawRect(renderer, SDL_Rect(
+        rect = SDL_Rect(
             position_component.x,
             position_component.y,
             size_component.width,
             size_component.height
-        ))
+        )
+
+        if not fillrect_component:
+            SDL_SetRenderDrawColor(renderer,
+                color_component.r,
+                color_component.g,
+                color_component.b,
+                color_component.a
+            )
+            SDL_RenderDrawRect(renderer, rect)
+        else:
+            SDL_SetRenderDrawColor(renderer,
+                fillrect_component.r,
+                fillrect_component.g,
+                fillrect_component.b,
+                fillrect_component.a
+            )
+            SDL_RenderFillRect(renderer, rect)
+
+class MouseSystem(System):
+    @staticmethod
+    def update(em: EntityManager, renderer: render.SDL_Renderer, e_id: uuid.UUID) -> None:
+        """
+        Update the Mouse State and process Mouse actions
+
+        Parameters:
+            em      (EntityManager): The entity manager
+            renderer (SDL_Renderer): The rendering surface
+            e_id             (UUID): The unique id of entity
+        """
+        if em.has_special("mouse"):
+            if em.has_component(e_id, "mouse-attach"):
+                mouse = em.get_special("mouse")
+                pos = em.get_component(mouse, "position")
+                attach = em.get_component(e_id, "mouse-attach")
+                attach.update(pos.x, pos.y)
+                point = em.get_component(e_id, attach.point_name)
+                point.x = attach.x
+                point.y = attach.y
+
+    @staticmethod
+    def on_motion(em: EntityManager, event) -> None:
+        e_id = em.get_special("mouse")
+
+        if e_id is not None:
+            pos = em.get_component(e_id, "position")
+            pos.x = ctypes.c_int(event.x)
+            pos.y = ctypes.c_int(event.y)
+
+            print(f"X : {event.x} | Y: {event.y} | relative X : {event.xrel} | relative Y : {event.yrel}")
+
+    @staticmethod
+    def on_button_down(em: EntityManager, event) -> None:
+        e_id = em.get_special("mouse")
+
+        if e_id is not None:
+            if event.button == SDL_BUTTON_LEFT:
+                print(f"Button Down : {SDL_BUTTON_LEFT}")
+
+            if event.button == SDL_BUTTON_RIGHT:
+                print(f"Button Down : {SDL_BUTTON_RIGHT}")
+
+            if event.button == SDL_BUTTON_MIDDLE:
+                print(f"Button Down : {SDL_BUTTON_MIDDLE}")
+
+    @staticmethod
+    def on_button_up(em: EntityManager, event) -> None:
+        e_id = em.get_special("mouse")
+
+        if e_id is not None:
+            if event.button == SDL_BUTTON_LEFT:
+                print(f"Button Up : {SDL_BUTTON_LEFT}")
+
+            if event.button == SDL_BUTTON_RIGHT:
+                print(f"Button Up : {SDL_BUTTON_RIGHT}")
+
+            if event.button == SDL_BUTTON_MIDDLE:
+                print(f"Button Up : {SDL_BUTTON_MIDDLE}")
+
+    @staticmethod
+    def on_wheel(em: EntityManager) -> None:
+        print("Wheeling")
+
+class EventSystem(System):
+    @staticmethod
+    def update(em: EntityManager, renderer: render.SDL_Renderer, e_id: uuid.UUID):
+        pass

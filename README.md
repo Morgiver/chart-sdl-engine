@@ -20,5 +20,6 @@ It will provide access to tools created to collect data for training artificial 
 5. ~~Create a viewable test in test.py drawing two line and a rectangle~~
 6. ~~Commenting code from previous TODO~~
 7. Define different Component to be able to set different mouse state on the entity
-8. Define MouseSystem class to handle actions with the mouse
+8. ~~Define MouseSystem class to handle actions with the mouse~~
 9. Define Scene class to be able to create multiple scene on the screen
+10. Define EventSystem to handle all events
