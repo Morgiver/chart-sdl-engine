@@ -10,6 +10,7 @@ class DrawableComponent(Component):
     pass
 
 class MouseStateComponent(Component):
+    """ Set the state of the mouse """
     def __init__(self):
         self.mode = "cursor"
         # cursor
@@ -18,6 +19,7 @@ class MouseStateComponent(Component):
         # cursor
 
 class MouseAttachComponent(Component):
+    """ Set an entity Point coordinates attached to the mouse's coordinates"""
     def __init__(self, mouse_x: float, mouse_y: float, point_name: str):
         self.x = ctypes.c_int(mouse_x)
         self.y = ctypes.c_int(mouse_y)
@@ -98,4 +100,5 @@ class ColorComponent(Component):
         self.a = ctypes.c_ubyte(a)
 
 class HoverableComponent(Component):
+    """ Set the entity has hoverable """
     pass

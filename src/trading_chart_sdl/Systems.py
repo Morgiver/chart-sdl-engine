@@ -133,6 +133,13 @@ class MouseSystem(System):
 
     @staticmethod
     def on_motion(em: EntityManager, event) -> None:
+        """
+        Event on motion, when the mouse is moving
+
+        Parameters:
+            em           (EntityManager): The entity manager
+            event (SDL_MouseMotionEvent): The sended event
+        """
         e_id = em.get_special("mouse")
 
         if e_id is not None:
@@ -144,6 +151,13 @@ class MouseSystem(System):
 
     @staticmethod
     def on_button_down(em: EntityManager, event) -> None:
+        """
+        On Button Down event
+
+        Parameters:
+            em           (EntityManager): The entity manager
+            event (SDL_MouseButtonEvent): The sended event
+        """
         e_id = em.get_special("mouse")
 
         if e_id is not None:
@@ -158,6 +172,13 @@ class MouseSystem(System):
 
     @staticmethod
     def on_button_up(em: EntityManager, event) -> None:
+        """
+        On Button Up event
+
+        Parameters:
+            em           (EntityManager): The entity manager
+            event (SDL_MouseButtonEvent): The sended event
+        """
         e_id = em.get_special("mouse")
 
         if e_id is not None:
@@ -171,7 +192,14 @@ class MouseSystem(System):
                 print(f"Button Up : {SDL_BUTTON_MIDDLE}")
 
     @staticmethod
-    def on_wheel(em: EntityManager) -> None:
+    def on_wheel(em: EntityManager, event) -> None:
+        """
+        On Mouse Wheel event
+
+        Parameters:
+            em          (EntityManager): The entity manager
+            event (SDL_MouseWheelEvent): The sended event
+        """
         print("Wheeling")
 
 class EventSystem(System):

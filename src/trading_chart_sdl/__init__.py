@@ -26,7 +26,16 @@ class SDLChart:
         self.systems  = []
 
     def register_special(self, e_id: uuid.UUID, name: str) -> None:
+        """ alias of EntityManager.register_special() """
         self.em.register_special(e_id, name)
+
+    def get_special(self, name: str) -> uuid.UUID:
+        """ alias of EntityManager.get_special() """
+        return self.em.get_special(name)
+
+    def has_special(self, name: str) -> bool:
+        """ alias of EntityManager.has_special() """
+        return self.em.has_special(name)
 
     def add_system(self, system: System):
         """ Adding a System to the SDLChart"""

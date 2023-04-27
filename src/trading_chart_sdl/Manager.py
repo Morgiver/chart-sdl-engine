@@ -24,13 +24,37 @@ class EntityManager:
         return e_id
 
     def register_special(self, e_id: uuid.UUID, name: str) -> None:
+        """
+        Register an entity to be considered "special". That means this entity
+        will be accessible faster. It is used to register device like mouse or
+        keyboard.
+
+        Parameters:
+            e_id (UUID): Entity UUID
+            name  (str): Name of the special entity
+        """
         if name not in self.specials:
             self.specials[name] = e_id
 
     def has_special(self, name: str) -> bool:
+        """
+        Check if there's a named special entity in specials dict
+
+        Parameters:
+            name (str): The name of special entity
+        """
         return name in self.specials
 
     def get_special(self, name: str):
+        """
+        Get a special entity by it's name
+
+        Parameters:
+            name (str): The name of special entity
+
+        Returns:
+            entity (UUID): The entity UUID
+        """
         if name in self.specials:
             return self.specials[name]
 
@@ -50,6 +74,13 @@ class EntityManager:
         self.entities[e_id].add(component_type)
 
     def remove_component(self, e_id: uuid.UUID, component_type):
+        """
+        Removing a component from it's entity
+
+        Parameters:
+            e_id           (UUID): Entity UUID
+            component_type  (str): Type of the component
+        """
         if component_type not in self.components:
             self.components[component_type] = {}
             return
