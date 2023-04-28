@@ -1,5 +1,9 @@
+import sys
 import random
 import time
+
+sys.path.append('../')
+
 from src.trading_chart_sdl import *
 
 if __name__ == "__main__":
@@ -74,6 +78,24 @@ if __name__ == "__main__":
     c.add_component(rect_entity, "size", SizeComponent(50, 25))
     c.add_component(rect_entity, "position", PositionComponent(random.randint(100, 400), random.randint(100, 400)))
     c.add_component(rect_entity, "color", ColorComponent(
+        random.randint(0, 255),
+        random.randint(0, 255),
+        random.randint(0, 255),
+        255
+    ))
+
+    rect_entity_two = c.create_entity()
+    c.add_component(rect_entity_two, "drawable", DrawableComponent())
+    c.add_component(rect_entity_two, "shape", ShapeComponent("fillrect"))
+    c.add_component(rect_entity_two, "size", SizeComponent(50, 25))
+    c.add_component(rect_entity_two, "position", PositionComponent(random.randint(100, 400), random.randint(100, 400)))
+    c.add_component(rect_entity_two, "color", ColorComponent(
+        random.randint(0, 255),
+        random.randint(0, 255),
+        random.randint(0, 255),
+        255
+    ))
+    c.add_component(rect_entity_two, "fillcolor", ColorComponent(
         random.randint(0, 255),
         random.randint(0, 255),
         random.randint(0, 255),

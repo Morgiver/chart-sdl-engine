@@ -1,3 +1,4 @@
+import uuid
 import ctypes
 from sdl2 import *
 
@@ -11,12 +12,17 @@ class DrawableComponent(Component):
 
 class MouseStateComponent(Component):
     """ Set the state of the mouse """
-    def __init__(self):
-        self.mode = "cursor"
-        # cursor
-        # line
-        # attached
-        # cursor
+    def __init__(self, e_id = None, mode = "cursor"):
+        self.entity = e_id
+        self.mode = mode
+
+class OnLeftButtonUpEvent(Component):
+    def __init__(self, callback):
+        self.callback = callback
+
+class OnRightButtonUpEvent(Component):
+    def __init__(self, callback):
+        self.callback = callback
 
 class MouseAttachComponent(Component):
     """ Set an entity Point coordinates attached to the mouse's coordinates"""
@@ -51,26 +57,6 @@ class SizeComponent(Component):
     def __init__(self, width: float, height: float):
         self.width = ctypes.c_int(width)
         self.height = ctypes.c_int(height)
-
-class FillRectComponent(Component):
-    """ Draw a Rectangle filled with color """
-    def __init__(self, r: int = 255, g: int = 255, b: int = 255, a: int = 255) -> None:
-        """
-        Initialization
-
-        Parameters:
-            r (int): Red Color
-            g (int): Green Color
-            b (int): Blue Color
-            a (int): Alpha Value
-
-        Returns:
-            None
-        """
-        self.r = ctypes.c_ubyte(r)
-        self.g = ctypes.c_ubyte(g)
-        self.b = ctypes.c_ubyte(b)
-        self.a = ctypes.c_ubyte(a)
 
 class ShapeComponent(Component):
     """ Define the shape of the entity"""

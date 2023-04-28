@@ -44,9 +44,16 @@ class RenderSystem(System):
         """
         if em.has_component(e_id, "drawable"):
             if em.has_component(e_id, "shape"):
-                RenderSystem.line(em, renderer, e_id)
-            if em.has_component(e_id, "shape"):
-                RenderSystem.rect(em, renderer, e_id)
+                shape = em.get_component(e_id, "shape").name
+
+                if shape == "line":
+                    RenderSystem.line(em, renderer, e_id)
+
+                if shape == "rect":
+                    RenderSystem.rect(em, renderer, e_id)
+
+                if shape == "fillrect":
+                    RenderSystem.fillrect(em, renderer, e_id)
 
     @staticmethod
     def line(em: EntityManager, renderer: render.SDL_Renderer, e_id: uuid.UUID) -> None:
@@ -81,7 +88,6 @@ class RenderSystem(System):
         size_component = em.get_component(e_id, "size")
         color_component = em.get_component(e_id, "color")
         position_component = em.get_component(e_id, "position")
-        fillrect_component = em.get_component(e_id, "fillrect")
 
         if not size_component or not color_component or not position_component:
             return
@@ -93,22 +99,45 @@ class RenderSystem(System):
             size_component.height
         )
 
-        if not fillrect_component:
-            SDL_SetRenderDrawColor(renderer,
-                color_component.r,
-                color_component.g,
-                color_component.b,
-                color_component.a
-            )
-            SDL_RenderDrawRect(renderer, rect)
-        else:
-            SDL_SetRenderDrawColor(renderer,
-                fillrect_component.r,
-                fillrect_component.g,
-                fillrect_component.b,
-                fillrect_component.a
-            )
-            SDL_RenderFillRect(renderer, rect)
+        SDL_SetRenderDrawColor(renderer,
+            color_component.r,
+            color_component.g,
+            color_component.b,
+            color_component.a
+        )
+        SDL_RenderDrawRect(renderer, rect)
+
+    @staticmethod
+    def fillrect(em: EntityManager, renderer: render.SDL_Renderer, e_id: uuid.UUID) -> None:
+        """
+        Draw a Rectangle
+
+        Parameters:
+            em      (EntityManager): The entity manager
+            renderer (SDL_Renderer): The rendering surface
+            e_id             (UUID): The unique id of entity
+        """
+        size_component = em.get_component(e_id, "size")
+        color_component = em.get_component(e_id, "color")
+        position_component = em.get_component(e_id, "position")
+
+        if not size_component or not color_component or not position_component:
+            return
+
+        rect = SDL_Rect(
+            position_component.x,
+            position_component.y,
+            size_component.width,
+            size_component.height
+        )
+
+        SDL_SetRenderDrawColor(renderer,
+            color_component.r,
+            color_component.g,
+            color_component.b,
+            color_component.a
+        )
+        SDL_RenderFillRect(renderer, rect)
 
 class MouseSystem(System):
     @staticmethod
@@ -183,7 +212,8 @@ class MouseSystem(System):
 
         if e_id is not None:
             if event.button == SDL_BUTTON_LEFT:
-                print(f"Button Up : {SDL_BUTTON_LEFT}")
+                if em.has_component(e_id, "OnLeftButtonUpEvent"):
+                    em.get_component(e_id, "OnLeftButtonUpEvent").callback(em, e_id, event.x, event.y)
 
             if event.button == SDL_BUTTON_RIGHT:
                 print(f"Button Up : {SDL_BUTTON_RIGHT}")

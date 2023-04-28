@@ -20,7 +20,7 @@ class EntityManager:
             e_id (UUID): The new entity UUID
         """
         e_id = uuid.uuid4()
-        self.entities[e_id] = set()
+        self.entities[e_id] = {}
         return e_id
 
     def register_special(self, e_id: uuid.UUID, name: str) -> None:
@@ -71,7 +71,7 @@ class EntityManager:
             self.components[component_type] = {}
 
         self.components[component_type][e_id] = component
-        self.entities[e_id].add(component_type)
+        self.entities[e_id][component_type] = {}
 
     def remove_component(self, e_id: uuid.UUID, component_type):
         """
@@ -84,7 +84,7 @@ class EntityManager:
         if component_type not in self.components:
             self.components[component_type] = {}
             return
-
+            
         del self.components[component_type][e_id]
         del self.entities[e_id][component_type]
 

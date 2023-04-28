@@ -61,6 +61,11 @@ class SDLEngine:
         """ alias of EntityManager.has_component() """
         return self.em.has_component(e_id, component_type)
 
+    def remove_component(self, e_id: uuid.UUID, component_type):
+        """ alias of EntityManager.remove_component() """
+        self.em.remove_component(e_id, component_type)
+        return self
+
     def initialize(self, pointer: int | NoneType = None) -> None:
         """
         Initialize the window and the global renderer
