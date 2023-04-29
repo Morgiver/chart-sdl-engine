@@ -35,6 +35,10 @@ class MouseAttachComponent(Component):
         self.x = x
         self.y = y
 
+class SelectableComponent(Component):
+    def __init__(self):
+        pass
+
 class DraggedComponent(Component):
     """ Set entity has dragged by the mouse """
     def __init__(self, mouse_x: float, mouse_y: float):
