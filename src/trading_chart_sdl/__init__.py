@@ -3,9 +3,9 @@ import ctypes
 from types import *
 from sdl2 import *
 
-from src.trading_chart_sdl.Manager import EntityManager
-from src.trading_chart_sdl.Components import *
-from src.trading_chart_sdl.Systems import *
+from trading_chart_sdl.Manager import EntityManager
+from trading_chart_sdl.Components import *
+from trading_chart_sdl.Systems import *
 
 class SDLEngine:
     def __init__(self, w: int = 500, h: int = 500) -> None:

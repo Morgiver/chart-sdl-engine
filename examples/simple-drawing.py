@@ -2,9 +2,9 @@ import sys
 import random
 import time
 
-sys.path.append('./')
+sys.path.append('./src')
 
-from src.trading_chart_sdl import *
+from trading_chart_sdl import *
 
 if __name__ == "__main__":
     c = SDLEngine()

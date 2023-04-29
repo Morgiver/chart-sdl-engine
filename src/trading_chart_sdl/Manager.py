@@ -1,5 +1,5 @@
 import uuid
-from src.trading_chart_sdl.Components import Component
+from trading_chart_sdl.Components import Component
 
 class EntityManager:
     """
@@ -84,7 +84,7 @@ class EntityManager:
         if component_type not in self.components:
             self.components[component_type] = {}
             return
-            
+
         del self.components[component_type][e_id]
         del self.entities[e_id][component_type]
 
