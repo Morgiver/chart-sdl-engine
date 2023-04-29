@@ -46,14 +46,10 @@ class RenderSystem(System):
             if em.has_component(e_id, "shape"):
                 shape = em.get_component(e_id, "shape").name
 
-                if shape == "line":
-                    RenderSystem.line(em, renderer, e_id)
-
-                if shape == "rect":
-                    RenderSystem.rect(em, renderer, e_id)
-
-                if shape == "fillrect":
-                    RenderSystem.fillrect(em, renderer, e_id)
+                if hasattr(RenderSystem, shape):
+                    fn = getattr(RenderSystem, shape, None)
+                    if callable(fn):
+                        fn(em, renderer, e_id)
 
     @staticmethod
     def line(em: EntityManager, renderer: render.SDL_Renderer, e_id: uuid.UUID) -> None:

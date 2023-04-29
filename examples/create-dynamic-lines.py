@@ -2,7 +2,7 @@ import sys
 import random
 import time
 
-sys.path.append('../')
+sys.path.append('./')
 
 from src.trading_chart_sdl import *
 
