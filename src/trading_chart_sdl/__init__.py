@@ -3,7 +3,7 @@ import ctypes
 from types import *
 from sdl2 import *
 
-from trading_chart_sdl.Manager import EntityManager
+from trading_chart_sdl.Managers import *
 from trading_chart_sdl.Components import *
 from trading_chart_sdl.Systems import *
 
