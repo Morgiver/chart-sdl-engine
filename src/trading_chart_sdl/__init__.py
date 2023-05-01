@@ -23,6 +23,7 @@ class SDLEngine:
         self.width    = w
         self.height   = h
         self.em       = EntityManager()
+        self.scene    = SceneManager()
         self.systems  = []
 
     def register_special(self, e_id: uuid.UUID, name: str) -> None:
@@ -110,41 +111,34 @@ class SDLEngine:
             SDL_WINDOW_SHOWN
         )
 
-    def process(self) -> None:
+    def process_inputs(self) -> None:
         """
-        Processing all entities Systems
+        Processing all SDL_Event
         """
-        RenderSystem.clear(self.renderer)
+        mouse_events = [SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP, SDL_MOUSEWHEEL]
+        keyboard_events = [SDL_KEYUP, SDL_KEYDOWN]
 
-        for system in self.systems:
-            for entity in self.em.entities:
-                system.update(self.em, self.renderer, entity)
-
-    def handle_events(self) -> bool:
-        """
-        Handling all SDL2 Events
-
-        Returns:
-            is_running (bool): Is the global loop running or not
-        """
-        if SDL_PollEvent(ctypes.byref(self.events)) != 0:
+        while SDL_PollEvent(ctypes.byref(self.events)) != 0:
             if self.events.type == SDL_QUIT:
                 self.destroy()
                 return False
 
-            if self.events.type == SDL_MOUSEMOTION:
-                MouseSystem.on_motion(self.em, self.events.motion)
-
-            if self.events.type == SDL_MOUSEBUTTONDOWN:
-                MouseSystem.on_button_down(self.em, self.events.button)
-
-            if self.events.type == SDL_MOUSEBUTTONUP:
-                MouseSystem.on_button_up(self.em, self.events.button)
-
-            if self.events.type == SDL_MOUSEWHEEL:
-                MouseSystem.on_wheel(self.em)
+            if self.events.type in mouse_events:
+                MouseSystem.process_inputs(self.em, self.event)
 
         return True
+
+    def update_logic(self):
+        pass
+
+    def collisions(self):
+        pass
+
+    def render(self):
+        pass
+
+    def cleanup(self):
+        pass
 
     def destroy(self) -> None:
         """
@@ -160,9 +154,10 @@ class SDLEngine:
         SDL_Quit()
 
     def step(self) -> bool:
-        """
-        Running one step of the Chart loop
-        """
-        is_running = self.handle_events()
-        self.process()
+        is_running = self.process_inputs()
+        self.update_logic()
+        self.collisions()
+        self.render()
+        self.cleanup()
+
         return is_running

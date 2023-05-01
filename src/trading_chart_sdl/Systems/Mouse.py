@@ -92,3 +92,17 @@ class MouseSystem(System):
             event (SDL_MouseWheelEvent): The sended event
         """
         print("Wheeling")
+
+    @staticmethod
+    def process_inputs(em: EntityManager, event: SDL_Event) -> None:
+        if event.type == SDL_MOUSEMOTION:
+            MouseSystem.on_motion(em, event.motion)
+
+        if event.type == SDL_MOUSEBUTTONDOWN:
+            MouseSystem.on_button_down(em, event.button)
+
+        if event.type == SDL_MOUSEBUTTONUP:
+            MouseSystem.on_button_up(em, event.button)
+
+        if event.type == SDL_MOUSEWHEEL:
+            MouseSystem.on_wheel(em, event.wheel)
