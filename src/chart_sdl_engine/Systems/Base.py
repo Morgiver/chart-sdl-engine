@@ -1,8 +1,8 @@
 import uuid
 import ctypes
 from sdl2 import *
-from trading_chart_sdl.Managers import *
-from trading_chart_sdl.Components import *
+from chart_sdl_engine.Managers import *
+from chart_sdl_engine.Components import *
 
 class System:
     """ Defining the System Type """

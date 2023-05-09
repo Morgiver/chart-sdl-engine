@@ -1,4 +1,4 @@
-from trading_chart_sdl.Components.Base import *
+from chart_sdl_engine.Components.Base import *
 
 class MouseStateComponent(Component):
     """ Set the state of the mouse """

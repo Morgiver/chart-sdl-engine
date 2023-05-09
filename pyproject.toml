@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "trading-chart-sdl"
+name = "chart-sdl-engine"
 version = "0.0.1"
 authors = [
   { name="Morgiver", email="me@morgiver.net" },
@@ -18,5 +18,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Morgiver/trading-chart-sdl"
-"Bug Tracker" = "https://github.com/Morgiver/trading-chart-sdl/issues"
+"Homepage" = "https://github.com/Morgiver/chart-sdl-engine"
+"Bug Tracker" = "https://github.com/Morgiver/chart-sdl-engine/issues"

@@ -1,4 +1,4 @@
-from trading_chart_sdl.Managers.Entity import *
+from chart_sdl_engine.Managers.Entity import *
 
 class Scene:
     def __init__(self, pos_x = 0, pos_y = 0, parent = None):

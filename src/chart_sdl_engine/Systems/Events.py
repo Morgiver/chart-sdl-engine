@@ -1,4 +1,4 @@
-from trading_chart_sdl.Systems.Base import *
+from chart_sdl_engine.Systems.Base import *
 
 class EventSystem(System):
     @staticmethod

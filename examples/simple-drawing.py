@@ -4,7 +4,7 @@ import time
 
 sys.path.append('./src')
 
-from trading_chart_sdl import *
+from chart_sdl_engine import *
 
 if __name__ == "__main__":
     c = SDLEngine()

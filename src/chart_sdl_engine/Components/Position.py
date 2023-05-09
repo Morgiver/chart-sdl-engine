@@ -1,4 +1,4 @@
-from trading_chart_sdl.Components.Base import *
+from chart_sdl_engine.Components.Base import *
 
 class PositionComponent(Component):
     """ Set a position point x, y for the Entity"""

@@ -1,5 +1,5 @@
 import uuid
-from trading_chart_sdl.Components import Component
+from chart_sdl_engine.Components import Component
 
 class EntityManager:
     """

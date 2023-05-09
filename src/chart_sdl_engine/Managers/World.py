@@ -1,4 +1,4 @@
-from trading_chart_sdl.Managers.Entity import *
+from chart_sdl_engine.Managers.Entity import *
 
 class GridManager:
     """
